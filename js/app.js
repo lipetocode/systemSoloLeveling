@@ -1,6 +1,7 @@
 import {QUESTS,localDay,changeMission,resetMissions} from './modules/missions.js';
 import {loadState,saveState} from './modules/storage.js';
 import {playerView,editPlayer} from './modules/player.js';
+import {exportBackup,importBackup} from './modules/backup.js';
 const $=id=>document.getElementById(id);
 let state=loadState();
 function persist(){if(!saveState(state)) M.toast({html:'Não foi possível salvar neste navegador.'});}
@@ -9,15 +10,20 @@ function render(){
   $('playerName').textContent=p.name;
   $('playerClass').textContent=`CLASSE: ${p.playerClass}`;
   $('level').textContent=p.level;
+  $('nextLevel').textContent=`NÍVEL ${p.level+1}`;
   $('xpLabel').textContent=`${p.xp} / ${p.required} XP`;
   $('xpBar').style.width=`${p.percentage}%`;
   $('strength').textContent=p.attributes.strength;
   $('endurance').textContent=p.attributes.endurance;
+  $('agility').textContent=p.attributes.agility;
   $('discipline').textContent=p.attributes.discipline;
   $('questCount').textContent=`${state.completed.length}/${QUESTS.length}`;
   $('totalQuests').textContent=state.totalQuests;
   $('totalXp').textContent=state.totalXp;
   $('availableXp').textContent=`+${QUESTS.filter(q=>!state.completed.includes(q.id)).reduce((n,q)=>n+q.xp,0)} XP`;
+  const history=$('xpHistory');history.replaceChildren();
+  if(!(state.history||[]).length){const empty=document.createElement('p');empty.className='history-empty';empty.textContent='Nenhuma alteração de XP registrada nesta versão.';history.append(empty);}
+  (state.history||[]).forEach(event=>{const item=document.createElement('div');item.className='history-item';const description=document.createElement('span');description.textContent=`${event.day} · ${event.mission}`;const delta=document.createElement('strong');delta.textContent=`${event.delta>0?'+':''}${event.delta} XP`;delta.className=event.delta>=0?'positive':'negative';item.append(description,delta);history.append(item);});
   const list=$('questList');list.replaceChildren();
   QUESTS.forEach(q=>{
     const done=state.completed.includes(q.id);
@@ -51,6 +57,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   $('resetDay').addEventListener('click',()=>{
     if(!window.confirm('Desmarcar as missões de hoje e remover o XP recebido por elas?'))return;
     state=resetMissions(state);persist();render();M.toast({html:'Missões reiniciadas.'});
+  });
+  $('exportBackup').addEventListener('click',()=>{
+    const blob=new Blob([exportBackup(state)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='SYSTEM-backup-'+localDay()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  $('importBackup').addEventListener('click',()=>$('backupFile').click());
+  $('backupFile').addEventListener('change',async e=>{
+    const file=e.target.files?.[0];if(!file)return;
+    try{if(file.size>500000)throw new Error('Backup maior que 500 KB');const next=importBackup(await file.text());if(!confirm('Substituir os dados atuais pelo backup?'))return;
+      if(!saveState(next))throw new Error('Não foi possível salvar o backup');state=next;render();M.toast({html:'Backup importado com sucesso!'});
+    }catch(error){M.toast({html:error.message});}finally{e.target.value='';}
   });
   persist();render();
   document.addEventListener('visibilitychange',()=>{
