@@ -13,6 +13,7 @@ export function progressFor(totalXp) {
   const required = xpRequired(level);
   return {level, xp: remaining, required, percentage: remaining / required * 100};
 }
-export function attributesFor(level) {
-  return {strength: 10 + (level-1)*2, endurance: 10 + (level-1)*2, discipline: 10 + level-1};
+export function attributesFor(level, bonuses = {}) {
+  const safe = key => Number.isSafeInteger(bonuses[key]) && bonuses[key]>=0 ? bonuses[key] : 0;
+  return {strength:10+(level-1)*2+safe('strength'),endurance:10+(level-1)*2+safe('endurance'),agility:10+(level-1)+safe('agility'),discipline:10+(level-1)+safe('discipline')};
 }

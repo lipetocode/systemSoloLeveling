@@ -1,7 +1,7 @@
 import {progressFor,attributesFor} from './xp.js';
 export function playerView(state) {
   const progress=progressFor(state.xp);
-  return {...progress,attributes:attributesFor(progress.level),name:state.name,playerClass:state.playerClass};
+  return {...progress,attributes:attributesFor(progress.level,state.bonuses),name:state.name,playerClass:state.playerClass};
 }
 export function editPlayer(state,name,playerClass) {
   const clean=name.trim().slice(0,32);
