@@ -1,40 +1,29 @@
-# SYSTEM v0.2 — Player Core
+# SYSTEM v0.4.1 — pacote estático para GitHub Pages
 
-Aplicativo web responsivo com HTML5, Materialize CSS e JavaScript ES modules.
+## Publicação
+1. Extraia o ZIP. Abra a pasta `SYSTEM`.
+2. Envie **o conteúdo da pasta SYSTEM**, incluindo `index.html`, `css/` e `js/`, para a raiz de seu repositório GitHub (não envie apenas o ZIP).
+3. Em **Settings → Pages**, escolha **Deploy from a branch**, branch `main`, pasta `/ (root)` e salve.
+4. Abra o endereço HTTPS fornecido pelo GitHub Pages. Pode levar alguns minutos.
 
-## Executar
+## Execução local e dados
+Abra `index.html` com duplo clique, sem servidor. Esta edição não faz requisições de CSS, JS ou fontes a CDNs; os ícones são substituições locais em caracteres Unicode (não são os glifos oficiais do Google Material Icons). A aparência pode diferir ligeiramente da v0.4. A camada local fornece os recursos de layout, modal, seleção e mensagens usados pelo SYSTEM, sem distribuir o Materialize original.
 
-**Não abra o HTML via `file://`:** módulos ES exigem servidor HTTP.
+**Antes de mudar de ambiente**, abra a versão antiga na mesma localização em que seus dados estão salvos e clique em **EXPORTAR BACKUP**. Depois de publicar, use **IMPORTAR BACKUP** na versão HTTPS. `file://` e `https://` não compartilham localStorage. Faça cópia do backup e só descarte os dados antigos após conferir os valores restaurados. O armazenamento `file://` varia por navegador/caminho.
 
-Na pasta `SYSTEM`, execute `python -m http.server 8000` e abra http://localhost:8000.
-É necessária internet para carregar Materialize e Google Material Icons via CDN.
+## Verificação manual necessária
+- Abrir `index.html` offline e confirmar interface, ícones, modal de edição e missões.
+- Concluir missão, atualizar página e confirmar XP e atributos.
+- Exportar backup, importar em outra origem e comparar dados.
+- Conferir no celular e na URL do GitHub Pages.
 
-## Testes
+## Testes automatizados
+`npm test` com Node.js 22 ou compatível. Os testes cobrem regras de negócio, **não** a renderização do navegador. Nenhum build nem dependência npm é necessário para hospedar.
 
-Node.js 18+: `npm test` (não exige `npm install`).
-
-## Arquitetura
-
-- `index.html` — interface e modal do perfil
-- `css/style.css` — tema responsivo
-- `js/app.js` — eventos e atualização da interface
-- `js/modules/player.js` — perfil e dados de exibição
-- `js/modules/xp.js` — progressão de XP e atributos
-- `js/modules/missions.js` — missões e recompensas
-- `js/modules/storage.js` — persistência local
-- `tests/core.test.mjs` — testes automatizados do núcleo
-
-## Compatibilidade
-
-Mantida a chave de armazenamento `system-player-v1`, migrando automaticamente a exibição da progressão linear de 100 XP para a curva incremental `round(100 * nível^1.5)`. O XP total já adquirido é preservado, mas o nível exibido pode mudar. A desmarcação de uma missão do dia reverte seu XP. Dados continuam locais ao navegador.
-
-## Pendências
-
-Validação visual manual em dispositivos e navegadores, exportação/backup de dados, histórico de treinos e testes de integração da interface.
-
-## Build 0.2.1 — Classic Interface
-- HTML visual restaurado a partir da Build 0.1 (somente o carregamento modular e o número da versão foram atualizados).
-- CSS exatamente igual ao da Build 0.1.
-- Lógica modular e testes da Build 0.2 preservados.
-- Executar com servidor HTTP local, por exemplo `python -m http.server 8000`.
-- Testes: `npm test`.
+## Estrutura
+- `index.html`: página principal
+- `css/style.css`: aparência clássica do SYSTEM
+- `css/local-ui.css`: compatibilidade visual local
+- `js/system-classic.js`: aplicação executável em `file://`
+- `js/local-ui.js`: modal, notificações e controles locais
+- `js/modules/`, `js/app.js`, `tests/`: fontes modulares e testes, não carregados pela página principal

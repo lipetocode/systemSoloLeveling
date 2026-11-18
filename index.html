@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#080f20" />
   <title>SYSTEM | Player Status</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="css/local-ui.css">
+  
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script type="module" src="js/app.js"></script>
+  <script defer src="js/local-ui.js"></script>
+  <script defer src="js/system-classic.js"></script>
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="#inicio" aria-label="SYSTEM início"><span class="brand-mark">◆</span> SYSTEM <span class="version">v0.2.1</span></a>
+      <a class="brand" href="#inicio" aria-label="SYSTEM início"><span class="brand-mark">◆</span> SYSTEM <span class="version">v0.4.1</span></a>
       <span class="connection"><span class="online-dot"></span> PLAYER ONLINE</span>
     </div>
   </header>
@@ -33,11 +33,14 @@
           </div>
           <div class="progress-heading"><span>EXPERIÊNCIA</span><span id="xpLabel">0 / 100 XP</span></div>
           <div class="progress xp-track"><div id="xpBar" class="determinate" style="width:0%"></div></div>
+          <div class="progress-heading"><span>PRÓXIMO NÍVEL</span><span id="nextLevel">NÍVEL 2</span></div>
           <div class="stats-grid">
             <div class="stat"><i class="material-icons">fitness_center</i><span>FORÇA</span><strong id="strength">10</strong></div>
             <div class="stat"><i class="material-icons">directions_run</i><span>RESISTÊNCIA</span><strong id="endurance">10</strong></div>
+            <div class="stat"><i class="material-icons">directions_walk</i><span>AGILIDADE</span><strong id="agility">10</strong></div>
             <div class="stat"><i class="material-icons">flash_on</i><span>DISCIPLINA</span><strong id="discipline">10</strong></div>
           </div>
+          <div class="backup-actions"><button type="button" id="exportBackup" class="btn-flat outline-btn">EXPORTAR BACKUP</button><button type="button" id="importBackup" class="btn-flat outline-btn">IMPORTAR BACKUP</button><input type="file" id="backupFile" accept="application/json,.json" hidden aria-label="Selecionar backup JSON"></div>
           <button id="editProfile" class="btn-flat outline-btn waves-effect" type="button"><i class="material-icons left">edit</i>EDITAR PLAYER</button>
         </div>
         <div class="panel notice-panel"><i class="material-icons">info_outline</i><div><strong>PROTOCOLO DE EVOLUÇÃO</strong><p>Conclua missões para ganhar XP. A cada novo nível, seus atributos aumentam.</p></div></div>
@@ -50,10 +53,11 @@
           <div class="quest-footer"><span>XP DISPONÍVEL</span><strong id="availableXp">+90 XP</strong></div>
           <button id="resetDay" class="btn-flat outline-btn waves-effect" type="button"><i class="material-icons left">refresh</i>REINICIAR MISSÕES</button>
         </div>
+        <div class="panel summary-panel"><div class="panel-heading">HISTÓRICO DE XP <span>ÚLTIMOS 30 EVENTOS</span></div><div id="xpHistory" class="history-list" aria-live="polite"></div></div>
         <div class="panel summary-panel"><div class="panel-heading">RESUMO DO SISTEMA</div><div class="summary-row"><span>Missões concluídas (total)</span><strong id="totalQuests">0</strong></div><div class="summary-row"><span>XP acumulado (total)</span><strong id="totalXp">0</strong></div><div class="summary-row"><span>Estado</span><strong class="active">ATIVO</strong></div></div>
       </section>
     </div>
-    <footer>PROJECT SYSTEM · BUILD 0.2.1 · SEUS DADOS FICAM NESTE NAVEGADOR</footer>
+    <footer>PROJECT SYSTEM · BUILD 0.4.1 · SEUS DADOS FICAM NESTE NAVEGADOR</footer>
   </main>
   <div id="profileModal" class="modal profile-modal"><div class="modal-content"><h4>EDITAR JOGADOR</h4><form id="profileForm"><div class="input-field"><input id="nameInput" type="text" maxlength="32" required><label for="nameInput">Nome do jogador</label></div><div class="input-field"><select id="classInput"><option value="INICIANTE">Iniciante</option><option value="GUERREIRO">Guerreiro</option><option value="SENTINELA">Sentinela</option></select><label>Classe</label></div><button class="btn system-btn" type="submit">SALVAR PERFIL</button></form></div><div class="modal-footer"><button type="button" class="modal-close btn-flat">CANCELAR</button></div></div>
 </body>
