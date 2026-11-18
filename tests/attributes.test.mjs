@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {defaults,loadState,STORAGE_KEY} from '../js/modules/storage.js';
+import {changeMission,resetMissions} from '../js/modules/missions.js';
+import {playerView} from '../js/modules/player.js';
+import {exportBackup,importBackup} from '../js/modules/backup.js';
+test('atributos por missão e reversão',()=>{const a=defaults(),b=changeMission(a,'workout',a.day).state;assert.equal(playerView(b).attributes.strength,11);assert.equal(playerView(b).attributes.endurance,11);const c=changeMission(b,'workout',a.day).state;assert.equal(playerView(c).attributes.strength,10);});
+test('reinício reverte bônus',()=>{const a=defaults(),b=changeMission(a,'cardio',a.day).state;assert.equal(playerView(resetMissions(b,a.day)).attributes.agility,10);});
+test('backup restaura estado',()=>{const a=changeMission(defaults(),'water').state;const b=importBackup(exportBackup(a));assert.equal(b.xp,20);assert.equal(b.bonuses.discipline,1);});
+test('backup inválido é rejeitado',()=>{assert.throws(()=>importBackup('{}'));assert.throws(()=>importBackup('{'));});
+test('legado sem bônus preserva XP',()=>{const a=defaults();delete a.bonuses;a.xp=45;const b=loadState({getItem:k=>k===STORAGE_KEY?JSON.stringify(a):null});assert.equal(b.xp,45);assert.equal(b.bonuses.agility,0);});
