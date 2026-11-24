@@ -1,29 +1,37 @@
-# SYSTEM v0.4.1 — pacote estático para GitHub Pages
+# SYSTEM v0.5.1 — CSS Hotfix
 
-## Publicação
-1. Extraia o ZIP. Abra a pasta `SYSTEM`.
-2. Envie **o conteúdo da pasta SYSTEM**, incluindo `index.html`, `css/` e `js/`, para a raiz de seu repositório GitHub (não envie apenas o ZIP).
-3. Em **Settings → Pages**, escolha **Deploy from a branch**, branch `main`, pasta `/ (root)` e salve.
-4. Abra o endereço HTTPS fornecido pelo GitHub Pages. Pode levar alguns minutos.
+Aplicativo de acompanhamento de treinos inspirado na progressão RPG de Solo Leveling. HTML, CSS e JavaScript, com camada local compatível com os componentes Materialize utilizados. Prazo previsto para a versão 1.0: 31/12/2026.
 
-## Execução local e dados
-Abra `index.html` com duplo clique, sem servidor. Esta edição não faz requisições de CSS, JS ou fontes a CDNs; os ícones são substituições locais em caracteres Unicode (não são os glifos oficiais do Google Material Icons). A aparência pode diferir ligeiramente da v0.4. A camada local fornece os recursos de layout, modal, seleção e mensagens usados pelo SYSTEM, sem distribuir o Materialize original.
+## Novidades da v0.5.1 (24/11/2026)
+- Correção visual do registro de treinos: campos escuros, labels acima dos campos, espaçamento, botões e lista de registros padronizados.
+- Layout responsivo em cinco, duas ou uma coluna, conforme a largura da tela.
+- Versionamento da URL de `css/style.css` para reduzir problemas de cache.
+- Sem alteração na lógica JavaScript ou nas chaves de armazenamento da v0.5.0.
 
-**Antes de mudar de ambiente**, abra a versão antiga na mesma localização em que seus dados estão salvos e clique em **EXPORTAR BACKUP**. Depois de publicar, use **IMPORTAR BACKUP** na versão HTTPS. `file://` e `https://` não compartilham localStorage. Faça cópia do backup e só descarte os dados antigos após conferir os valores restaurados. O armazenamento `file://` varia por navegador/caminho.
+## Publicação no GitHub Pages
+1. Exporte os backups do jogador e dos treinos antes de atualizar.
+2. Extraia o ZIP e abra a pasta `SYSTEM`.
+3. Envie o conteúdo dessa pasta para a raiz do repositório, substituindo os arquivos correspondentes e preservando `css/` e `js/`.
+4. Faça o commit `Release v0.5.1 - CSS Hotfix`.
+5. Em Settings → Pages, confirme a branch de publicação (normalmente `main`) e a pasta `/ (root)`.
+6. Aguarde o deploy e abra https://lipetocode.github.io/systemSoloLeveling/ . Confira a versão no cabeçalho e rodapé. Se necessário, recarregue sem cache.
 
-## Verificação manual necessária
-- Abrir `index.html` offline e confirmar interface, ícones, modal de edição e missões.
-- Concluir missão, atualizar página e confirmar XP e atributos.
-- Exportar backup, importar em outra origem e comparar dados.
-- Conferir no celular e na URL do GitHub Pages.
+## Execução local e armazenamento
+Abra `index.html` diretamente no navegador. Não é necessário instalar dependências para executar ou hospedar. A camada visual local não distribui o Materialize original; os ícones são substituições Unicode. Não há dependências de CDN.
 
-## Testes automatizados
-`npm test` com Node.js 22 ou compatível. Os testes cobrem regras de negócio, **não** a renderização do navegador. Nenhum build nem dependência npm é necessário para hospedar.
+Os dados ficam no localStorage do navegador. `file://` e `https://` não compartilham armazenamento. Exporte **EXPORTAR BACKUP** (jogador) e **EXPORTAR TREINOS** (registros) separadamente antes de mudar de origem, navegador ou caminho local. Importe cada arquivo pelo controle correspondente; a importação de treinos substitui os registros atuais após confirmação. Confira os dados antes de descartar os backups.
+
+## Registro de treinos
+Cadastre data, exercício, séries, repetições, carga e observações. É possível editar, excluir e exportar/importar registros. O cadastro não concede XP automaticamente. Sessões com múltiplos exercícios e cargas individualizadas por série ainda não fazem parte desta versão.
+
+## Testes e homologação
+Execute `npm test` com Node.js 22 ou compatível. Os testes de negócio não substituem a validação visual. Confira cadastro, edição, exclusão, persistência, backup, XP e layout em desktop e celular. A publicação remota deve ser homologada após o deploy.
 
 ## Estrutura
-- `index.html`: página principal
-- `css/style.css`: aparência clássica do SYSTEM
-- `css/local-ui.css`: compatibilidade visual local
-- `js/system-classic.js`: aplicação executável em `file://`
-- `js/local-ui.js`: modal, notificações e controles locais
-- `js/modules/`, `js/app.js`, `tests/`: fontes modulares e testes, não carregados pela página principal
+- `index.html`: página principal.
+- `css/style.css`: interface clássica e hotfix de treinos.
+- `css/local-ui.css`: componentes visuais locais.
+- `js/system-classic.js`: jogador, XP e missões.
+- `js/workouts.js`: registro de treinos e backup próprio.
+- `js/local-ui.js`: controles locais.
+- `js/modules/`, `js/app.js`, `tests/`: fontes modulares e testes; não carregados pela página principal.

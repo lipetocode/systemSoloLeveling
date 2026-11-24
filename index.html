@@ -7,7 +7,7 @@
   <title>SYSTEM | Player Status</title>
   <link rel="stylesheet" href="css/local-ui.css">
   
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=0.5.1">
   <script defer src="js/local-ui.js"></script>
   <script defer src="js/system-classic.js"></script>
   <script defer src="js/workouts.js"></script>
@@ -15,7 +15,7 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="#inicio" aria-label="SYSTEM início"><span class="brand-mark">◆</span> SYSTEM <span class="version">v0.5.0</span></a>
+      <a class="brand" href="#inicio" aria-label="SYSTEM início"><span class="brand-mark">◆</span> SYSTEM <span class="version">v0.5.1</span></a>
       <span class="connection"><span class="online-dot"></span> PLAYER ONLINE</span>
     </div>
   </header>
@@ -73,7 +73,7 @@
       <div class="workout-buttons"><button type="button" class="btn-flat outline-btn" id="exportWorkouts">EXPORTAR TREINOS</button><button type="button" class="btn-flat outline-btn" id="importWorkouts">IMPORTAR TREINOS</button><input type="file" id="workoutFile" accept=".json,application/json" hidden></div>
       <div id="workoutList" class="workout-list" aria-live="polite"></div>
     </section>
-    <footer>PROJECT SYSTEM · BUILD 0.5.0 · SEUS DADOS FICAM NESTE NAVEGADOR</footer>
+    <footer>PROJECT SYSTEM · BUILD 0.5.1 · SEUS DADOS FICAM NESTE NAVEGADOR</footer>
   </main>
   <div id="profileModal" class="modal profile-modal"><div class="modal-content"><h4>EDITAR JOGADOR</h4><form id="profileForm"><div class="input-field"><input id="nameInput" type="text" maxlength="32" required><label for="nameInput">Nome do jogador</label></div><div class="input-field"><select id="classInput"><option value="INICIANTE">Iniciante</option><option value="GUERREIRO">Guerreiro</option><option value="SENTINELA">Sentinela</option></select><label>Classe</label></div><button class="btn system-btn" type="submit">SALVAR PERFIL</button></form></div><div class="modal-footer"><button type="button" class="modal-close btn-flat">CANCELAR</button></div></div>
 </body>
