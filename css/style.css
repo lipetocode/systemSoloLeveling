@@ -6,5 +6,27 @@
 /* v0.4: apenas novos controles, preservando a interface clássica */
 .backup-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}.backup-actions .outline-btn{font-size:11px;padding:0 12px;flex:1 1 145px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(min-width:650px){.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-/* Build 0.5 — workout registry */
-.workout-panel{margin-top:24px;padding:22px}.workout-form{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:20px 0}.workout-form label{color:#94b6d7;font-size:11px;letter-spacing:.07em}.workout-form input,.workout-form textarea{display:block;box-sizing:border-box;width:100%;color:#e7f5ff;background:#0c1a2d;border:1px solid #31516c;border-radius:5px;padding:10px;margin-top:6px;min-height:40px}.workout-form input:focus,.workout-form textarea:focus{outline:1px solid #41c8ff}.workout-wide{grid-column:1/-1}.workout-buttons{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.workout-item{border-top:1px solid #294057;padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}.workout-info{display:flex;flex-direction:column;gap:4px;color:#e7f5ff}.workout-info span,.workout-info small{color:#a1b6c9}.workout-actions{display:flex;flex-wrap:wrap;gap:6px}@media(max-width:750px){.workout-form{grid-template-columns:repeat(2,minmax(0,1fr))}.workout-form label:nth-child(2){grid-column:1/-1}.workout-item{align-items:flex-start;flex-direction:column}}
+/* Build 0.5.1 — workout registry visual hotfix */
+#treinos {margin-top:24px; color-scheme:dark;}
+#treinos .workout-form {display:grid;grid-template-columns:minmax(145px,1.1fr) minmax(180px,2fr) repeat(3,minmax(90px,.8fr));gap:16px;margin:22px 0 16px;align-items:start;}
+#treinos .workout-form label {display:flex;flex-direction:column;gap:8px;min-width:0;color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:1px;}
+#treinos .workout-form input,#treinos .workout-form textarea {display:block;width:100%;min-width:0;min-height:44px;margin:0;padding:11px 12px;border:1px solid #37618c;border-radius:6px;background:#0b172a;color:var(--text);font:400 .9rem Roboto,Arial,sans-serif;letter-spacing:normal;}
+#treinos .workout-form textarea {min-height:86px;resize:vertical;}
+#treinos .workout-form input::placeholder,#treinos .workout-form textarea::placeholder {color:#8da4c2;opacity:1;}
+#treinos .workout-form input:focus,#treinos .workout-form textarea:focus {outline:2px solid var(--cyan);outline-offset:2px;}
+#treinos .workout-wide,#treinos .workout-form .workout-buttons {grid-column:1/-1;}
+#treinos .workout-buttons {display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+#treinos .workout-buttons button,#treinos .workout-actions button {width:auto;min-height:44px;line-height:1.3;padding:12px 16px;border-radius:6px;font-size:.75rem;font-weight:700;letter-spacing:1px;white-space:normal;text-align:center;}
+#treinos .workout-buttons button:focus-visible,#treinos .workout-actions button:focus-visible {outline:2px solid var(--cyan);outline-offset:2px;}
+#treinos > .workout-buttons {border-top:1px solid var(--border);padding-top:16px;}
+#treinos .workout-item {border-top:1px solid var(--border);padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+#treinos .workout-info {display:flex;flex-direction:column;gap:5px;min-width:0;overflow-wrap:anywhere;}
+#treinos .workout-info span,#treinos .workout-info small {color:var(--muted);}
+#treinos .workout-actions {display:flex;flex-wrap:wrap;gap:8px;}
+#treinos .workout-list {margin-top:18px;}
+@media(max-width:850px){#treinos .workout-form {grid-template-columns:repeat(2,minmax(0,1fr));}#treinos .workout-form label:nth-child(2){grid-column:1/-1;}}
+@media(max-width:480px){#treinos .workout-form {gap:12px;}#treinos .workout-buttons button {flex:1 1 100%;}#treinos .workout-item {align-items:flex-start;flex-direction:column;}#treinos .panel-heading {gap:10px;flex-wrap:wrap;}}
+/* Ajustes de contraste e telas estreitas. */
+#treinos .outline-btn{border:1px solid #37618c;}
+#treinos .system-btn{border:1px solid #428ce0;}
+@media(max-width:480px){#treinos .workout-form{grid-template-columns:minmax(0,1fr);}#treinos .workout-actions{width:100%;}#treinos .workout-actions button{flex:1 1 auto;}}
