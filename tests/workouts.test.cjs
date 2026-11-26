@@ -6,3 +6,14 @@ test('rejects invalid reps',()=>assert.throws(()=>validate({...sample,reps:0})))
 test('rejects impossible date',()=>assert.throws(()=>validate({...sample,date:'2026-02-31'})));
 test('parses stored workouts',()=>assert.equal(parse(JSON.stringify([{...sample,id:'abc'}])).length,1));
 test('rejects nonarray storage',()=>assert.throws(()=>parse('{}')));
+const {validateSession,parseSessions,migrate,totals,decodeBackup}=sandbox.module.exports;
+const session={id:'s1',date:'2026-11-26',name:'Treino A',exercises:[{name:'Supino',group:'Peitoral',sets:[{weight:40,reps:12,type:'prep'},{weight:80,reps:8,type:'work'}]},{name:'Remada',group:'Costas',sets:[{weight:50,reps:10,type:'work'}]}]};
+test('validates multiple exercises',()=>assert.equal(validateSession(session).exercises.length,2));
+test('calculates total and effective volume',()=>{const t=totals(validateSession(session));assert.equal(t.total,1620);assert.equal(t.effective,1140);assert.equal(t.work,2);assert.equal(t.prep,1);});
+test('migrates old records without inventing classification',()=>{const s=migrate([{...sample,id:'abc'}])[0];assert.equal(s.exercises[0].sets.length,3);assert.equal(totals(s).unknown,3);assert.equal(totals(s).total,1500);});
+test('rejects duplicate session IDs',()=>assert.throws(()=>parseSessions(JSON.stringify([session,session]))));
+test('rejects empty exercises',()=>assert.throws(()=>validateSession({...session,exercises:[]})));
+test('rejects blank load',()=>assert.throws(()=>validateSession({...session,exercises:[{...session.exercises[0],sets:[{weight:'',reps:10,type:'work'}]}]})));
+test('imports v1 backup',()=>assert.equal(decodeBackup({format:'system-workouts',version:1,records:[{...sample,id:'abc'}]}).length,1));
+test('imports v2 backup',()=>assert.equal(decodeBackup({format:'system-workouts',version:2,sessions:[session]})[0].id,'s1'));
+test('rejects unsupported backup',()=>assert.throws(()=>decodeBackup({format:'system-workouts',version:3})));
