@@ -1,18 +1,19 @@
-# SYSTEM v0.5.1 — CSS Hotfix
+# SYSTEM v0.5.2 — Workout Sessions
 
 Aplicativo de acompanhamento de treinos inspirado na progressão RPG de Solo Leveling. HTML, CSS e JavaScript, com camada local compatível com os componentes Materialize utilizados. Prazo previsto para a versão 1.0: 31/12/2026.
 
-## Novidades da v0.5.1 (24/11/2026)
-- Correção visual do registro de treinos: campos escuros, labels acima dos campos, espaçamento, botões e lista de registros padronizados.
-- Layout responsivo em cinco, duas ou uma coluna, conforme a largura da tela.
-- Versionamento da URL de `css/style.css` para reduzir problemas de cache.
-- Sem alteração na lógica JavaScript ou nas chaves de armazenamento da v0.5.0.
+## Novidades da v0.5.2 (26/11/2026)
+- Sessões com múltiplos exercícios, grupo muscular, observações e séries individuais.
+- Classificação preparatória, efetiva ou não classificada; volume total e efetivo calculados por carga × repetições. Informe a carga total utilizada (para halteres, some os dois quando usados simultaneamente).
+- Migração automática dos registros v1 para sessões individuais, sem apagar a chave antiga. Séries antigas ficam não classificadas; não é possível inferir sua intensidade. O volume mantém a convenção de carga original.
+- Backup de treinos v2, com leitura de backups v1 e v2. A importação substitui as sessões atuais após confirmação. Não há sincronização retroativa com versões antigas.
+- Nenhuma alteração na lógica de jogador, XP ou missões.
 
 ## Publicação no GitHub Pages
 1. Exporte os backups do jogador e dos treinos antes de atualizar.
 2. Extraia o ZIP e abra a pasta `SYSTEM`.
 3. Envie o conteúdo dessa pasta para a raiz do repositório, substituindo os arquivos correspondentes e preservando `css/` e `js/`.
-4. Faça o commit `Release v0.5.1 - CSS Hotfix`.
+4. Faça o commit `Release v0.5.2 - Workout Sessions`.
 5. Em Settings → Pages, confirme a branch de publicação (normalmente `main`) e a pasta `/ (root)`.
 6. Aguarde o deploy e abra https://lipetocode.github.io/systemSoloLeveling/ . Confira a versão no cabeçalho e rodapé. Se necessário, recarregue sem cache.
 
@@ -22,7 +23,7 @@ Abra `index.html` diretamente no navegador. Não é necessário instalar depend�
 Os dados ficam no localStorage do navegador. `file://` e `https://` não compartilham armazenamento. Exporte **EXPORTAR BACKUP** (jogador) e **EXPORTAR TREINOS** (registros) separadamente antes de mudar de origem, navegador ou caminho local. Importe cada arquivo pelo controle correspondente; a importação de treinos substitui os registros atuais após confirmação. Confira os dados antes de descartar os backups.
 
 ## Registro de treinos
-Cadastre data, exercício, séries, repetições, carga e observações. É possível editar, excluir e exportar/importar registros. O cadastro não concede XP automaticamente. Sessões com múltiplos exercícios e cargas individualizadas por série ainda não fazem parte desta versão.
+Informe data e nome da sessão, adicione exercícios e séries, selecione o grupo muscular e o tipo de cada série. Salve a sessão para persistir os dados. É possível editar, excluir e exportar/importar sessões. Limites: 300 sessões, 30 exercícios por sessão, 30 séries por exercício. A sessão não concede XP automaticamente. O volume é um indicador de carga externa, não uma medida direta de hipertrofia. Rascunhos não salvos não persistem após recarregar.
 
 ## Testes e homologação
 Execute `npm test` com Node.js 22 ou compatível. Os testes de negócio não substituem a validação visual. Confira cadastro, edição, exclusão, persistência, backup, XP e layout em desktop e celular. A publicação remota deve ser homologada após o deploy.
