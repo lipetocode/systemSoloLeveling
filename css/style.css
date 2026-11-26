@@ -30,3 +30,16 @@
 #treinos .outline-btn{border:1px solid #37618c;}
 #treinos .system-btn{border:1px solid #428ce0;}
 @media(max-width:480px){#treinos .workout-form{grid-template-columns:minmax(0,1fr);}#treinos .workout-actions{width:100%;}#treinos .workout-actions button{flex:1 1 auto;}}
+/* 0.5.2: scoped session UI */
+#treinos .session-form{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+#treinos .session-form label:nth-child(2){grid-column:auto}
+#treinos .session-exercise{border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:12px;background:#0d192c;min-width:0}
+#treinos .session-exercise-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--cyan);margin-bottom:12px}
+#treinos .session-exercise-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#treinos .session-exercise-fields label:last-child{grid-column:1/-1}
+#treinos .session-set{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1fr);gap:10px;align-items:end;margin:12px 0;padding-top:12px;border-top:1px solid var(--border)}
+#treinos .session-form select{display:block;width:100%;min-width:0;min-height:44px;background:#0b172a;color:var(--text);border:1px solid #37618c;border-radius:6px;padding:8px;font:400 .9rem Roboto,Arial,sans-serif}
+#treinos .session-form select:focus-visible{outline:2px solid var(--cyan)}
+#treinos .session-exercise .outline-btn{width:auto;min-height:44px;line-height:1.3;padding:10px;white-space:normal;font-size:.68rem}
+#treinos .session-totals{padding:14px;background:#0b172a;border:1px solid var(--border);border-radius:6px;color:var(--cyan);line-height:1.7;overflow-wrap:anywhere}
+@media(max-width:650px){#treinos .session-form,#treinos .session-exercise-fields{grid-template-columns:minmax(0,1fr)}#treinos .session-set{grid-template-columns:repeat(2,minmax(0,1fr))}}
